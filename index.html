@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Papyrus Profiling Parser</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Jake Alaimo">
+
+    <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+
+            #dynamicElements{
+                position: absolute;
+
+                width: 70%;
+                height: 60%;
+
+                left: 15%;
+                top: 20%;
+
+            }
+
+            #dynamicElements div{
+                height: 100%;
+            }
+
+            .category{
+
+                display: inline;
+
+            }
+
+            table {
+                position: relative;
+                height: 100%;
+            }
+
+            tbody{
+                overflow-y: auto;
+            }
+    </style>
+
+    <!--development version, replace later-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script src="parser.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <input type="file" id="file">
+        <input type="button" value="Process" id="process" v-on:click="Process">
+
+        <div id="dynamicElements">
+            <div v-if="displayedCategory">
+                <div v-for="(value, key) in logData" class="category">
+                    <input type="radio" name="category" v-bind:value="key" v-on:click="DisplayCategory" v-model="displayedCategory">
+                    <label for="key">{{key}}</label>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>QUEUE_PUSH</th>
+                            <th>PUSH</th>
+                            <th>QUEUE_POP</th>
+                            <th>POP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(data, ID) in displayedData">
+                            <td>{{ID}}</td>
+                            <td>{{data.QUEUE_PUSH}}</td>
+                            <td>{{data.PUSH}}</td>
+                            <td>{{data.QUEUE_POP}}</td>
+                            <td>{{data.POP}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <input type="button" id="copyButton" value="Copy to clipboard" v-on:click="CopyTable">
+            </div>
+            <h2 v-else>Process a file to see the results here</h2>
+        </div>
+    </div>
+</body>
+</html> 
