@@ -5,53 +5,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Jake Alaimo">
 
-    <style>
-            table {
-              font-family: arial, sans-serif;
-              border-collapse: collapse;
-              width: 100%;
-            }
-            
-            td, th {
-              border: 1px solid #dddddd;
-              text-align: left;
-              padding: 8px;
-            }
-            
-            tr:nth-child(even) {
-              background-color: #dddddd;
-            }
-
-            #dynamicElements{
-                position: absolute;
-
-                width: 70%;
-                height: 60%;
-
-                left: 15%;
-                top: 20%;
-
-            }
-
-            #dynamicElements div{
-                height: 100%;
-            }
-
-            .category{
-
-                display: inline;
-
-            }
-
-            table {
-                position: relative;
-                height: 100%;
-            }
-
-            tbody{
-                overflow-y: auto;
-            }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
     <!--development version, replace later-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -67,10 +21,12 @@
 
         <div id="dynamicElements">
             <div v-if="displayedCategory">
-                <div v-for="(value, key) in logData" class="category">
-                    <input type="radio" name="category" v-bind:value="key" v-on:click="DisplayCategory" v-model="displayedCategory">
-                    <label for="key">{{key}}</label>
-                </div>
+                <span id="categories">
+                    <div v-for="(value, key) in logData" class="category">
+                        <input type="radio" name="category" v-bind:value="key" v-on:click="DisplayCategory" v-model="displayedCategory">
+                        <label for="key">{{key}}</label>
+                    </div>
+                </span>
 
                 <table>
                     <thead>

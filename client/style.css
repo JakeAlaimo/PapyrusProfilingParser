@@ -1,0 +1,48 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd; 
+}
+
+#dynamicElements{
+    position: absolute;
+
+    width: 70%;
+    height: 60%;
+
+    left: 15%;
+    top: 20%;
+}
+
+#dynamicElements div{
+    height: 100%;
+}
+
+#categories {
+    width: 100%;
+}
+.category{
+
+display: inline;
+margin: auto;
+
+}
+
+table {
+position: relative;
+height: 100%;
+}
+
+tbody{
+    overflow-y: auto;
+}
