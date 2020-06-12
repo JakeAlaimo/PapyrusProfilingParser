@@ -28,26 +28,28 @@
                     </div>
                 </span>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>QUEUE_PUSH</th>
-                            <th>PUSH</th>
-                            <th>QUEUE_POP</th>
-                            <th>POP</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(data, ID) in displayedData">
-                            <td>{{ID}}</td>
-                            <td>{{data.QUEUE_PUSH}}</td>
-                            <td>{{data.PUSH}}</td>
-                            <td>{{data.QUEUE_POP}}</td>
-                            <td>{{data.POP}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id="tableContainer">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>QUEUE_PUSH</th>
+                                <th>PUSH</th>
+                                <th>QUEUE_POP</th>
+                                <th>POP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(data, ID) in displayedData">
+                                <td>{{ID}}</td>
+                                <td>{{data.QUEUE_PUSH}}</td>
+                                <td>{{data.PUSH}}</td>
+                                <td>{{data.QUEUE_POP}}</td>
+                                <td>{{data.POP}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <input type="button" id="copyButton" value="Copy to clipboard" v-on:click="CopyTable">
             </div>
