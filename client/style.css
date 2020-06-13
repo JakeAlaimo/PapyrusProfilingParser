@@ -8,7 +8,13 @@
 
     left: 25%;
     top: 20%;
+}
 
+#elementBody{
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    top: 5%;
     background-color: #4b4b4b; 
 }
 
@@ -16,30 +22,40 @@
     position: absolute;
     width: 100%;
     height: 5%;
-
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 .category{
+    position: relative;
+    top: 10%;
     background-color: #3b3b3b; 
     color: white;
     font-weight: bold;
     font-size: 1em;
 
-    border: none;
-
     flex-basis: 0;
     flex-grow: 1;
+
+    border: 1px solid rgb(22, 22, 22);
+    z-index: 1;
 }
 
 .selectedCategory{
+    top: 0%;
     background-color: #4b4b4b; 
-    border: 1px solid black;
     border-bottom: none;
+    border-left: none;
+    border-right: none;
     outline: none;
-
     text-decoration: underline;
+
+    box-shadow: 2px 0px rgb(19, 19, 19);;
+    z-index: 2;
+}
+
+.selectedCategory:last-of-type{
+    box-shadow: -2px 0px rgb(19, 19, 19);
 }
 
 .category:focus {
@@ -48,10 +64,10 @@
 
 #tableContainer {
     position: absolute;
-    width: 95%;
-    height: 85%;
-    top: 7.5%;
-    left: 2.5%;
+    width: 97%;
+    height: 95%;
+    top: 2.5%;
+    left: 1.5%;
 
     overflow-y: auto;
 }
