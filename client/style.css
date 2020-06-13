@@ -4,6 +4,8 @@
     width: 50%;
     height: 60%;
 
+    min-width: 375px;
+
     left: 25%;
     top: 20%;
 
@@ -23,6 +25,7 @@
     background-color: #3b3b3b; 
     color: white;
     font-weight: bold;
+    font-size: 1em;
 
     border: none;
 
@@ -37,6 +40,10 @@
     outline: none;
 
     text-decoration: underline;
+}
+
+.category:focus {
+    outline: none;
 }
 
 #tableContainer {
@@ -76,7 +83,7 @@ thead th{
 }
 
 td {
-    border: 1px solid #cacaca;
+    border: 1px solid #b8b8b8;
     text-align: left;
     padding: 8px;
 }

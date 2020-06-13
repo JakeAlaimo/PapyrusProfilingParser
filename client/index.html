@@ -22,7 +22,7 @@
         <div id="dynamicElements">
             <div v-if="displayedCategory">
                 <div id="categories">
-                    <input type="button" v-for="(value, key) in logData" class="category" v-on:click="DisplayCategory" v-bind:value="key">
+                    <input type="button" v-for="(value, key) in logData" class="category" v-bind:class="{'selectedCategory' : displayedCategory == key}" v-on:click="DisplayCategory" v-bind:value="key">
                 </div>
 
                 <div id="tableContainer">
