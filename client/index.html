@@ -21,12 +21,9 @@
 
         <div id="dynamicElements">
             <div v-if="displayedCategory">
-                <span id="categories">
-                    <div v-for="(value, key) in logData" class="category">
-                        <input type="radio" name="category" v-bind:value="key" v-on:click="DisplayCategory" v-model="displayedCategory">
-                        <label for="key">{{key}}</label>
-                    </div>
-                </span>
+                <div id="categories">
+                    <input type="button" v-for="(value, key) in logData" class="category" v-on:click="DisplayCategory" v-bind:value="key">
+                </div>
 
                 <div id="tableContainer">
                     <table>

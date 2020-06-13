@@ -8,6 +8,7 @@ window.onload = () => {
           logData: {},
           displayedData: {},
           displayedCategory: "",
+          categoryNode: undefined,
 
         },
         methods: {
@@ -28,6 +29,12 @@ window.onload = () => {
                  if(key === type) {
                     this.displayedData = value;
                     this.displayedCategory = key;
+
+                    if(this.categoryNode)
+                       this.categoryNode.classList.remove("selectedCategory")
+                    
+                    e.target.classList.add("selectedCategory");
+                    this.categoryNode = e.target;
                  }
               }
            },
