@@ -16,8 +16,10 @@
 <body>
     
 <div id="app">
-    <input type="file" id="file">
-    <input type="button" value="Process" id="process" v-on:click="Process">
+    <div id="input">
+        <input type="file" id="file">
+        <input type="button" value="Process" id="process" v-on:click="Process">
+    </div>
 
     <div id="dynamicElements">
         <div v-if="displayedCategory">
