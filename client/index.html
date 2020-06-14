@@ -15,44 +15,45 @@
 </head>
 <body>
     
-    <div id="app">
-        <input type="file" id="file">
-        <input type="button" value="Process" id="process" v-on:click="Process">
+<div id="app">
+    <input type="file" id="file">
+    <input type="button" value="Process" id="process" v-on:click="Process">
 
-        <div id="dynamicElements">
-            <div v-if="displayedCategory">
-                <div id="categories">
-                    <input type="button" v-for="(value, key) in logData" class="category" v-bind:class="{'selectedCategory' : displayedCategory == key}" v-on:click="DisplayCategory" v-bind:value="key">
-                </div>
-                <div id="elementBody">
-                    <div id="tableContainer">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>QUEUE_PUSH</th>
-                                    <th>PUSH</th>
-                                    <th>QUEUE_POP</th>
-                                    <th>POP</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(data, ID) in displayedData">
-                                    <td>{{ID}}</td>
-                                    <td>{{data.QUEUE_PUSH}}</td>
-                                    <td>{{data.PUSH}}</td>
-                                    <td>{{data.QUEUE_POP}}</td>
-                                    <td>{{data.POP}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <input type="button" id="copyButton" value="Copy to clipboard" v-on:click="CopyTable">
+    <div id="dynamicElements">
+        <div v-if="displayedCategory">
+            <div id="categories">
+                <input type="button" v-for="(value, key) in logData" class="category" v-bind:class="{'selectedCategory' : displayedCategory == key}" v-on:click="DisplayCategory" v-bind:value="key">
             </div>
-            <h2 v-else>Process a file to see the results here</h2>
+            <div id="elementBody">
+                <div id="tableContainer">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>QUEUE_PUSH</th>
+                                <th>PUSH</th>
+                                <th>QUEUE_POP</th>
+                                <th>POP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(data, ID) in displayedData">
+                                <td>{{ID}}</td>
+                                <td>{{data.QUEUE_PUSH}}</td>
+                                <td>{{data.PUSH}}</td>
+                                <td>{{data.QUEUE_POP}}</td>
+                                <td>{{data.POP}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <input type="button" id="copyButton" value="Copy to clipboard" v-on:click="CopyTable">
         </div>
+        <h2 v-else>Process a file to see the results here</h2>
     </div>
+</div>
+
 </body>
 </html> 
