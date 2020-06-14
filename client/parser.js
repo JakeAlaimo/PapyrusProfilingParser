@@ -34,7 +34,7 @@ function Parse(fileContent)
          return;
       }
 
-      let type = components[5].match(/(?<=\.)(?!Register)[^\.]*$/);
+      let type = components[5].trim().match(/(?<=\.)(?!Register)[^\.]*$/);
       let id = components[2];
 
       if(!type) {
