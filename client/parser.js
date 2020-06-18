@@ -34,10 +34,13 @@ function Parse(fileContent)
          return;
       }
 
-      let type = components[5].trim().match(/(?<=\.)(?!Register)[^\.]*$/);
+      //let type = components[5].trim().match(/(?<=\.)(?!Register)[^\.]*$/);
+      let splitFunctionLine  = components[5].trim().split('.');
+      let type = splitFunctionLine[splitFunctionLine.length - 1];
+      
       let id = components[2];
 
-      if(!type) {
+      if(!type || type.substring(0, 8) === "Register") {
          return;
       }
 
@@ -49,41 +52,3 @@ function Parse(fileContent)
 
    return data;
 }
-/*
-function SetInterface(){
-   //add copy buttons to the interface
-   let copyButtons = document.querySelector("#copyButtons");
-
-   // clear all buttons
-   var child = copyButtons.lastElementChild;  
-    while (child) { 
-        copyButtons.removeChild(child); 
-        child = copyButtons.lastElementChild; 
-    } 
-   
-   for (const type in deltaTimes) {
-
-      let li = document.createElement("li");
-
-      let copyButton = document.createElement("input");
-      copyButton.type = "button";
-      copyButton.value = "Copy " + type + " Data";
-
-      copyButton.addEventListener("click", ()=>{
-        let clipboard = document.querySelector("#clipboard");
-        clipboard.value = "";
-
-        deltaTimes[type].forEach((dt)=>{
-           clipboard.value += dt + "\n";
-        });
-
-        clipboard.select();
-        document.execCommand("copy");
-
-        alert(type + " copied to clipboard.")
-      });
-
-      li.appendChild(copyButton);
-      copyButtons.appendChild(li);
-   }
-}*/
