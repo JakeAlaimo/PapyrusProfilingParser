@@ -8,8 +8,6 @@ body {
     height: 5%;
     top: 5%;
     left: 5%;
-
-
 }
 
 
@@ -19,7 +17,9 @@ body {
     width: 90%;
     height: 80%;
 
-    min-width: 375px;
+    min-width: 400px;
+    min-height: 375px;
+
 
     left: 5%;
     top: 12.5%;
@@ -172,4 +172,14 @@ tr:nth-child(odd) {
 }
 #copyButton:active {
     background-image: linear-gradient(rgb(25,25,25), rgb(13, 13, 13));
+}
+
+
+@media only screen and (max-height: 430px) {
+    #input {
+      top: 20px;
+    }
+    #dynamicElements {
+        top: 50px
+    }
 }
