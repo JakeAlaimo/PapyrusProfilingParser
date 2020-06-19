@@ -56,7 +56,10 @@ h2 {
     background-color: #3b3b3b; 
     color: rgb(238, 238, 238);
     font-weight: bold;
-    font-size: 1em;
+    /*font-size: 1em;*/
+    font-size:calc(15px + 0.3vw);
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     flex-basis: 0;
     flex-grow: 1;
@@ -82,23 +85,18 @@ h2 {
     top: 0%;
     background-color: #4b4b4b; 
     color: white;
+    overflow: visible;
+    padding: 0px 10px 0px 10px;
 
     border-bottom: none;
-    border-left: none;
-    border-right: none;
 
     text-decoration: underline;
     border-radius: 5px 5px 0px 0px;
     box-shadow: 2px 0px rgb(19, 19, 19);;
     z-index: 2;
 }
-.selectedCategory:first-of-type{
-    border-left: 1px solid rgb(22, 22, 22);
-    
-}
 .selectedCategory:last-of-type{
     box-shadow: -2px 0px rgb(19, 19, 19);
-    border-right: 1px solid rgb(22, 22, 22);
 }
 .selectedCategory:only-of-type {
     box-shadow: none;
@@ -165,7 +163,7 @@ tr:nth-child(odd) {
 
     border: 1px solid rgb(22, 22, 22);
     border-top: 0;
-    border-radius: 0px 0px 20px 20px;
+    border-radius: 0px 0px 35px 35px;
 
     color: white;
     background-image: linear-gradient(rgb(37,37,37), rgb(20, 20, 20));
