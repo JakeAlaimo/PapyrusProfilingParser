@@ -35,8 +35,7 @@ function Parse(fileContent)
       }
 
       //let type = components[5].trim().match(/(?<=\.)(?!Register)[^\.]*$/);
-      let splitFunctionLine  = components[5].trim().split('.');
-      let type = splitFunctionLine[splitFunctionLine.length - 1];
+      let type = components[5].trim().split('.').pop();
       
       let id = components[2];
 
