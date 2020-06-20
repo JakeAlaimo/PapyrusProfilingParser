@@ -11,9 +11,15 @@ function ProcessFile(file){
    reader.readAsText(file,'UTF-8');
 
    //once read, parse the file
-   let parsePromise = new Promise((resolve) => {
+   let parsePromise = new Promise((resolve, reject) => {
       reader.onload = (e) => { 
-         resolve(Parse(e.target.result));
+         let parsedData = Parse(e.target.result);
+
+         if(Object.keys(parsedData).length > 0) {
+            resolve(parsedData);
+         } else {
+            reject();
+         }
       };
    });
 

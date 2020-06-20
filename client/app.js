@@ -33,10 +33,19 @@ window.onload = () => {
            Process: function() {
               let file = document.querySelector("#file");
 
+              if(!file.files[0])
+                 return;
+
               ProcessFile(file.files[0]).then((parsedData) => {
                  this.logData = parsedData;  
                  this.displayedCategory = Object.keys(this.logData)[0];
                  this.displayedData = this.logData[this.displayedCategory];
+              })
+              .catch(()=> {
+                 this.logData = {};
+                 this.displayedCategory = "";
+                 this.displayedData = {};
+                 alert("File \'" + this.selectedFile + "\' does not contain valid profiling data.");
               });
            },
 
