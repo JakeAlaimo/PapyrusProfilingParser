@@ -7,9 +7,7 @@
 
     <link rel="stylesheet" type="text/css" href="style.css">
 
-    <!--development version, replace later-->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
+    <script src="lib/vue.min.js"></script>
     <script src="parser.js"></script>
     <script src="app.js"></script>
 </head>
@@ -17,8 +15,11 @@
     
 <div id="app">
     <div id="input">
-        <input type="file" id="file">
-        <input type="button" value="Process" id="process" v-on:click="Process">
+        <label for="file" id="fileStyled" class="emptyFile">
+            <input type="file" id="file" v-on:change="FileChanged" v-on:dragenter="FileDragged" v-on:dragleave="FileUndragged">
+            <span>{{selectedFile}}</span>
+        </label>
+        <input type="button" value="Parse" id="process" v-on:click="Process">
     </div>
 
     <div id="dynamicElements">
@@ -51,11 +52,18 @@
                 </div>
             </div>
 
-            <input type="button" id="copyButton" value="Copy to clipboard" v-on:click="CopyTable">
+            <div id="tableButtons">
+                <input type="button" class="tableButton" id="exportButton" value="Export as CSV" v-on:click="ExportTable">
+                <input type="button" class="tableButton" id="copyButton" value="Copy to Clipboard" v-on:click="CopyTable">
+            </div>
         </div>
-        <h2 v-else>Process a file to see the results here</h2>
+        <h2 v-else>Process a file to see the results here. Click or drag and drop onto the field above to select a file.</h2>
     </div>
 </div>
+
+<footer>
+        Copyright &copy; 2020 Jake Alaimo | <a href="https://www.nexusmods.com/users/7101768?tab=user+files">My Mods</a> | <a href="https://paypal.me/jakealaimo" title="Thanks!">Donate</a>
+</footer>
 
 </body>
 </html> 

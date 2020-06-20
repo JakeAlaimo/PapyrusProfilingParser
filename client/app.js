@@ -8,8 +8,28 @@ window.onload = () => {
           logData: {},
           displayedData: {},
           displayedCategory: "",
+          selectedFile: "Choose a file..."
         },
         methods: {
+           FileChanged: function(e) {
+              this.selectedFile = e.target.value.split('\\').pop();
+
+              if(this.selectedFile) {
+                 document.querySelector("#fileStyled").classList.remove('emptyFile');
+              } else {
+                 this.selectedFile = "Choose a file...";
+                 document.querySelector("#fileStyled").classList.add('emptyFile');
+              }
+
+              this.FileUndragged();
+           },
+           FileDragged: function() {
+              document.querySelector("#fileStyled").classList.add('dragOver');
+           },
+           FileUndragged: function() {
+              document.querySelector("#fileStyled").classList.remove('dragOver');
+           },
+
            Process: function() {
               let file = document.querySelector("#file");
 
@@ -31,7 +51,7 @@ window.onload = () => {
               }
            },
 
-           CopyTable: function(e) {
+           CopyTable: function() {
               document.getSelection().removeAllRanges(); 
 
               //create selection range and then add to selection
@@ -41,9 +61,13 @@ window.onload = () => {
               document.getSelection().addRange(range);
 
               document.execCommand("copy");
+           },
+
+           ExportTable: function() {
+              console.log("woof");
            }
         }
     });
-}
+};
 
 

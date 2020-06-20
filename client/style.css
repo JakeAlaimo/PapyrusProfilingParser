@@ -1,21 +1,102 @@
 body {
-    background-color: rgb(110, 110, 110);
+    background-color: rgba(114, 114, 108, 1.0);
+    background-image: url("img/bg.jpg");
+    background-blend-mode: color-burn;
 }
 
 h2 {
     font-family: Arial, Helvetica, sans-serif;
-    color: black;
+    color: rgb(22, 24, 15);
     font-weight: bold;
+    text-align: center;
 }
 
 #input {
     position: absolute;
     width: 90%;
-    height: 5%;
-    top: 5%;
+    height: 3.5%;
+    top: 4%;
     left: 5%;
+
+    min-height: 25px;
+    max-height: 70px;
+
+    min-width: 400px;
+}
+#fileStyled {
+    position: absolute;
+    width: 40%;
+    height: 100%;
+    left: 26.5%;
+
+    background-color: white;
+    border-radius: 4px 0px 0px 4px;
+    box-sizing:border-box;
+    border: 1px solid rgb(143, 175, 27);
+    box-shadow: 0px 0px 8px 1px rgb(69, 73, 60);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#fileStyled:before {
+    content: '';
+    vertical-align: middle;
+    display: inline-block;
+    height: 100%;
 }
 
+#fileStyled.dragOver, #fileStyled:hover {
+    background-color: rgb(228, 228, 228);
+}
+#fileStyled:active {
+    background-color: rgb(211, 211, 211);
+}
+#fileStyled span {
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+
+    font-size:calc(14px + 0.25vw);
+    padding-left: 2%;/*40px;*/
+}
+#fileStyled.emptyFile span {
+    color: rgb(146, 146, 146);
+}
+
+#file {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0%;
+}
+
+#process {
+    position: absolute;
+    width: 7%;
+    height: 100%;
+    left: 66.5%;
+    border: 1px solid rgb(143, 175, 27);
+    border-radius: 0px 4px 4px 0px;
+
+    color: white;
+    font-weight: bold;
+    font-size:calc(15px + 0.25vw);
+    
+    background-color: rgb(143, 175, 27);
+    box-shadow: 0px 0px 8px 1px rgb(69, 73, 60);
+}
+#process:hover {
+    background-color: rgb(153, 185, 37);
+}
+#process:active {
+    background-color: rgb(123, 155, 7);
+}
+#process:focus {
+    outline: none;
+}
 
 #dynamicElements {
     position: absolute;
@@ -24,11 +105,10 @@ h2 {
     height: 80%;
 
     min-width: 400px;
-    min-height: 375px;
-
+    min-height: 400px;
 
     left: 5%;
-    top: 12.5%;
+    top: 11.5%;
 }
 
 #elementBody {
@@ -138,7 +218,7 @@ thead th{
     color: white;
 
     border: 1px solid #9c9c9c;
-    background-color: #646464;  /*8b8b8b*/
+    background-color: #656661;  /*8b8b8b*/
     box-shadow:  0px 1px 3px 0px rgb(88, 88, 88);
 }
 
@@ -149,44 +229,103 @@ td {
 }
 
 tr:nth-child(even) {
-    background-color: #cbc6cc; /*c7c7c7*/
+    background-color: #cbccc6; /*c7c7c7*/
 }
 tr:nth-child(odd) {
     background-color: #ebebeb; 
 }
 
-#copyButton {
+#tableButtons {
     position: absolute;
     top: 93%;
     width: 100%;
     height: 7%;
 
+    display: flex;
+}
+
+.tableButton {
     border: 1px solid rgb(22, 22, 22);
     border-top: 0;
-    border-radius: 0px 0px 35px 35px;
 
     color: white;
-    background-image: linear-gradient(rgb(37,37,37), rgb(20, 20, 20));
+    background-image: linear-gradient(rgb(37,37,37), rgb(18, 18, 18));
 
     font-weight: bold;
-    font-size: 1em;
+    font-size:calc(14px + 0.3vw);
+
+    flex-grow: 1;
+    flex-basis: 0;
 }
-#copyButton:hover {
-    background-image: linear-gradient(rgb(45,45,45), rgb(28, 28, 28));
+.tableButton:hover {
+    background-image: linear-gradient(rgb(45,45,45), rgb(26, 26, 26));
 }
-#copyButton:focus {
+.tableButton:focus {
     outline: none;
 }
-#copyButton:active {
-    background-image: linear-gradient(rgb(25,25,25), rgb(13, 13, 13));
+.tableButton:active {
+    background-image: linear-gradient(rgb(25,25,25), rgb(11, 11, 11));
 }
 
+#exportButton {
+    border-radius: 0px 0px 0px 30px;
+    border-right: 1px solid rgb(54, 54, 54);
+}
+#copyButton {
+    border-radius: 0px 0px 30px 0px;
+    border-left: 1px solid black;
+}
 
-@media only screen and (max-height: 430px) {
+footer {
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    bottom: 18px;
+
+    font-size:calc(16px + 0.3vw);
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(22, 24, 15);
+}
+
+footer a {
+    color: rgb(165, 201, 36);   
+    font-weight: bold;
+    text-decoration: none;
+}
+footer a:hover {
+    color: rgb(180, 218, 47);
+    text-decoration: underline;
+
+}
+footer a:active {
+    color: rgb(126, 158, 11);
+}
+footer a:visited {
+    
+}
+
+@media only screen and (max-height: 495px) {
     #input {
-      top: 20px;
+      top: 15px;
     }
     #dynamicElements {
-        top: 50px
+        top: 50px;
+    }
+
+    footer {
+        position: relative;
+        top: 460px;
+        margin-bottom: 15px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    #fileStyled {
+      left: 0%;
+      width: 80%;
+    }
+    #process{
+        left: 80%;
+        width: 20%;
     }
 }
