@@ -9,7 +9,9 @@ window.onload = () => {
           displayedData: {},
           displayedCategory: "",
           selectedFile: "Choose a file...",
-          displayedFile: ""
+          displayedFile: "",
+
+          dragCounter: 0
         },
         methods: {
            FileChanged: function(e) {
@@ -18,15 +20,24 @@ window.onload = () => {
               if(newFile) {
                  this.selectedFile = newFile;
                  document.querySelector("#fileStyled").classList.remove('emptyFile');
-              }
 
-              this.FileUndragged();
+                 this.dragCounter = 0;
+                 document.querySelector("#fileStyled").classList.remove('dragOver');
+              }
            },
-           FileDragged: function() {
-              document.querySelector("#fileStyled").classList.add('dragOver');
+           FileDragged: function(e) {
+              e.preventDefault();
+              this.dragCounter++;
+              if(this.dragCounter === 1){
+                 document.querySelector("#fileStyled").classList.add('dragOver');
+              }
            },
-           FileUndragged: function() {
-              document.querySelector("#fileStyled").classList.remove('dragOver');
+           FileUndragged: function(e) {
+              e.preventDefault();
+              this.dragCounter--;
+              if(this.dragCounter === 0){
+                 document.querySelector("#fileStyled").classList.remove('dragOver');
+              }
            },
 
            Process: function() {
@@ -72,8 +83,6 @@ window.onload = () => {
            },
 
            ExportTable: function() {
-              console.log("woof");
-
               //structure data into CSV format first
               let lines = "ID,QUEUE_PUSH,PUSH,QUEUE_POP,POP\n";
 
