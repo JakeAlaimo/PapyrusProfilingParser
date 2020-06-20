@@ -5,7 +5,8 @@ body {
 }
 
 h2 {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.4em;
     color: rgb(22, 24, 15);
     font-weight: bold;
     text-align: center;
@@ -81,6 +82,7 @@ h2 {
     border: 1px solid rgb(143, 175, 27);
     border-radius: 0px 4px 4px 0px;
 
+    font-family: Arial, Helvetica, sans-serif;
     color: white;
     font-weight: bold;
     font-size:calc(15px + 0.25vw);
@@ -131,13 +133,14 @@ h2 {
 }
 
 .category{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: relative;
     top: 10%;
     background-color: #3b3b3b; 
     color: rgb(238, 238, 238);
     font-weight: bold;
-    /*font-size: 1em;*/
-    font-size:calc(15px + 0.3vw);
+
+    font-size:calc(13px + 0.35vw);
     overflow: hidden;
     text-overflow: ellipsis;
 
@@ -223,6 +226,7 @@ thead th{
 }
 
 td {
+    font-family: Arial, Helvetica, sans-serif;
     border: 1px solid #9c9c9c;
     text-align: left;
     padding: 8px;
@@ -251,8 +255,9 @@ tr:nth-child(odd) {
     color: white;
     background-image: linear-gradient(rgb(37,37,37), rgb(18, 18, 18));
 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
-    font-size:calc(14px + 0.3vw);
+    font-size:calc(12px + 0.33vw);
 
     flex-grow: 1;
     flex-basis: 0;
@@ -280,10 +285,12 @@ footer {
     position: fixed;
     text-align: center;
     width: 100%;
-    bottom: 18px;
+    bottom: 17px;
+    left: 0;
 
     font-size:calc(16px + 0.3vw);
     font-family: Arial, Helvetica, sans-serif;
+
     color: rgb(22, 24, 15);
 }
 
