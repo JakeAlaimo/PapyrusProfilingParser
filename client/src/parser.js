@@ -15,30 +15,68 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-//parser.js is responsible for converting profiling logs into excel-ready data 
+//parser.js is responsible for converting profiling logs into table-ready data 
 
-// read and then parse the given file
-function ProcessFile(file){
-   if(!file){
+//promisifies the reader.onload event
+function ReadFile(reader) {
+   let readFilePromise = new Promise((resolve) => {
+      reader.onload = (e) => {
+         resolve(e.target.result);
+      }
+   });
+
+   return readFilePromise;
+}
+
+// read and then parse the given files
+function ProcessFile(files){
+   if(files.length == 0){
       return;
    }
 
-   // read the file in
-   var reader = new FileReader();
-   reader.readAsText(file,'UTF-8');
+   let parsePromise = new Promise(async (resolve, reject) => {
+      let data = {};
+      let quantAlert = false;
 
-   //once read, parse the file
-   let parsePromise = new Promise((resolve, reject) => {
-      reader.onload = (e) => { 
-         let parsedData = Parse(e.target.result);
+      for(let i = 0; i < files.length; i++) {
+         // read the file in
+         let reader = new FileReader();
+         reader.readAsText(files[i],'UTF-8');
+   
+         //once read, parse the file
+         let readData = await ReadFile(reader);
+         let parsedData = Parse(readData);
 
+         //add the results of this file to the overall data
          if(Object.keys(parsedData).length > 0) {
-            resolve(parsedData);
+            for (let [type, value] of Object.entries(parsedData)) {
+
+               if(!data[type]) { data[type] = {}; }
+
+               //if id values overlap between files, append filename. Notify the user of this change
+               for (let id of Object.keys(value)) {
+                  if(data[type].hasOwnProperty(id))
+                  {
+                     if(!quantAlert) {
+                        alert("More than one selected file has data for ID:" + id + ". ID will have its filename appended, so the column will not be quantitative.");
+                        quantAlert = true;
+                     }
+
+                     //rename the root key, appending the filename
+                     delete Object.assign(value, {[id + "_" + files[i].name ]: value[id] })[id];
+                  }
+               }
+
+               data[type] = Object.assign(data[type], value);
+            }
          } else {
-            reject();
+            reject("File \'" + files[i].name + "\' has failed to parse.");
          }
-      };
-   });
+      }  
+
+      //resolve after all files are parsed
+      resolve(data);
+   });   
 
    return parsePromise;
 }

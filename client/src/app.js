@@ -28,20 +28,25 @@ window.onload = () => {
 
           selectedFile: "Choose a file...",
           tableFile: "",
-          file: {},
+          files: [],
 
           dragCounter: 0
         },
         methods: {
            FileChanged: function(e) {
-              let newFileName = e.target.value.split('\\').pop();
+              let newFileName = (e.target.files.length >= 1) ? e.target.files[0].name.split('\\').pop() : "";
 
               if(newFileName) {
-                 this.file = e.target.files[0];
+                 this.files = e.target.files;
 
-                 this.selectedFile = newFileName;
-                 document.querySelector("#fileStyled").classList.remove('emptyFile');
-
+                 if( e.target.files.length === 1) {
+                   this.selectedFile = newFileName;
+                   document.querySelector("#fileStyled").classList.remove('emptyFile');
+                 } else {
+                    this.selectedFile = "[Multiple Files]";
+                    document.querySelector("#fileStyled").classList.add('emptyFile');
+                 }
+                 
                  this.dragCounter = 0;
                  document.querySelector("#fileStyled").classList.remove('dragOver');
               }
@@ -65,28 +70,28 @@ window.onload = () => {
            FileDropped: function(e) {
               e.preventDefault();
               e.stopPropagation();
-              this.file = e.dataTransfer.files[0];
-              this.FileChanged({target: {value: this.file.name, files: [this.file]}});
+              this.files = e.dataTransfer.files;
+              this.FileChanged({target: {files: this.files}});
            },
 
            Process: function() {
-              if(!this.file)
+              if(this.files.length == 0)
                  return;
 
-              ProcessFile(this.file).then((parsedData) => {
+              ProcessFile(this.files).then((parsedData) => {
                  this.logData = parsedData;  
                  this.DisplayCategory({target: {value: Object.keys(this.logData)[0]}});                 
               })
-              .catch(()=> {
+              .catch((error)=> {
                  this.logData = {};
                  this.displayedCategory = "";
                  this.displayedData = {};
 
-                 alert("File \'" + this.selectedFile + "\' has failed to parse.");
+                 alert(error);
 
                  this.selectedFile = "Choose a file...";
                  document.querySelector("#fileStyled").classList.add('emptyFile');
-                 this.file = null;
+                 this.files = [];
               });
            },
 

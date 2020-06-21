@@ -37,7 +37,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 <div id="app">
     <div id="input">
         <label for="file" id="fileStyled" class="emptyFile">
-            <input type="file" id="file" v-on:change="FileChanged" v-on:dragenter="FileDragged" ondragover="event.preventDefault()" v-on:dragleave="FileUndragged" v-on:drop="FileDropped">
+            <input multiple type="file" id="file" v-on:change="FileChanged" v-on:dragenter="FileDragged" ondragover="event.preventDefault()" v-on:dragleave="FileUndragged" v-on:drop="FileDropped">
             <span>{{selectedFile}}</span>
         </label>
         <input type="button" value="Parse" id="process" v-on:click="Process">
