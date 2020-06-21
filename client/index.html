@@ -6,6 +6,7 @@
     <meta name="author" content="Jake Alaimo">
 
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/ico" href="favicon.ico"/>
 
     <script src="lib/vue.min.js"></script>
     <script src="lib/FileSaver.min.js"></script>
@@ -18,7 +19,7 @@
 <div id="app">
     <div id="input">
         <label for="file" id="fileStyled" class="emptyFile">
-            <input type="file" id="file" v-on:change="FileChanged" v-on:dragenter="FileDragged" v-on:dragleave="FileUndragged">
+            <input type="file" id="file" v-on:change="FileChanged" v-on:dragenter="FileDragged" ondragover="event.preventDefault()" v-on:dragleave="FileUndragged" v-on:drop="FileDropped">
             <span>{{selectedFile}}</span>
         </label>
         <input type="button" value="Parse" id="process" v-on:click="Process">
@@ -59,7 +60,7 @@
                 <input type="button" class="tableButton" id="copyButton" value="Copy to Clipboard" v-on:click="CopyTable">
             </div>
         </div>
-        <h2 v-else>Process a file to see the results here. Click or drag and drop onto the field above to select a file.</h2>
+        <h2 v-else>Parse a file to see the results here. Click or drag onto the field above to select a file.</h2>
     </div>
 </div>
 

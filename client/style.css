@@ -1,7 +1,6 @@
 body {
     background-color: rgba(114, 114, 108, 1.0);
     background-image: url("img/bg.jpg");
-    background-blend-mode: color-burn;
 }
 
 h2 {
@@ -123,7 +122,9 @@ h2 {
     top: 5%;
     background-color: #4b4b4b;
     border: 1px solid rgb(22, 22, 22);
+    border-top: none;
     box-sizing: border-box;
+    z-index: 3;
 }
 
 #categories {
@@ -138,7 +139,7 @@ h2 {
 .category{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: relative;
-    top: 10%;
+    top: 0;
     background-color: #3b3b3b; 
     color: rgb(238, 238, 238);
     font-weight: bold;
@@ -168,7 +169,7 @@ h2 {
 
 .selectedCategory{
     height: 110%;
-    top: 0%;
+    top: -10%;
     background-color: #4b4b4b; 
     color: white;
     overflow: visible;
@@ -209,16 +210,21 @@ table {
     border-spacing: 0;
 
     width: 100%;
+
+    z-index: 4;
 }
+
 
 thead tr {
     width: 100%;
 }
 thead th{
     position: sticky;
+
     width: 20%;
     top: 0;
     padding: 8px;
+    padding-right: 0px;
     text-align: left;
 
     color: white;
@@ -226,6 +232,9 @@ thead th{
     border: 1px solid #9c9c9c;
     background-color: #656661;  /*8b8b8b*/
     box-shadow:  0px 1px 3px 0px rgb(88, 88, 88);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 td {
@@ -233,6 +242,10 @@ td {
     border: 1px solid #9c9c9c;
     text-align: left;
     padding: 8px;
+    padding-right: 0px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 tr:nth-child(even) {
@@ -336,5 +349,15 @@ footer a:visited {
     #process{
         left: 80%;
         width: 20%;
+    }
+}
+
+/*
+  This is an edge browser, which means the position: sticky on thead th has issues.
+  Remove the attribute if using edge. Gross solution, but seemingly necessary.
+*/
+@supports (-ms-ime-align:auto) or (-ms-accelerator:true) {
+    thead th {
+        position: initial;
     }
 }

@@ -8,17 +8,21 @@ window.onload = () => {
           logData: {},
           displayedData: {},
           displayedCategory: "",
+
           selectedFile: "Choose a file...",
-          displayedFile: "",
+          tableFile: "",
+          file: {},
 
           dragCounter: 0
         },
         methods: {
            FileChanged: function(e) {
-              let newFile = e.target.value.split('\\').pop();
+              let newFileName = e.target.value.split('\\').pop();
 
-              if(newFile) {
-                 this.selectedFile = newFile;
+              if(newFileName) {
+                 this.file = e.target.files[0];
+
+                 this.selectedFile = newFileName;
                  document.querySelector("#fileStyled").classList.remove('emptyFile');
 
                  this.dragCounter = 0;
@@ -39,14 +43,17 @@ window.onload = () => {
                  document.querySelector("#fileStyled").classList.remove('dragOver');
               }
            },
+           FileDropped: function(e) {
+              e.preventDefault();
+              this.file = e.dataTransfer.files[0];
+              this.FileChanged({target: {value: this.file.name, files: [this.file]}});
+           },
 
            Process: function() {
-              let file = document.querySelector("#file");
-
-              if(!file.files[0])
+              if(!this.file)
                  return;
 
-              ProcessFile(file.files[0]).then((parsedData) => {
+              ProcessFile(this.file).then((parsedData) => {
                  this.logData = parsedData;  
                  this.DisplayCategory({target: {value: Object.keys(this.logData)[0]}});                 
               })
@@ -54,7 +61,12 @@ window.onload = () => {
                  this.logData = {};
                  this.displayedCategory = "";
                  this.displayedData = {};
-                 alert("File \'" + this.selectedFile + "\' does not contain valid profiling data.");
+
+                 alert("File \'" + this.selectedFile + "\' has failed to parse.");
+
+                 this.selectedFile = "Choose a file...";
+                 document.querySelector("#fileStyled").classList.add('emptyFile');
+                 this.file = null;
               });
            },
 
@@ -65,7 +77,7 @@ window.onload = () => {
                  if(key === type) {
                     this.displayedData = value;
                     this.displayedCategory = key;
-                    this.displayedFile = this.selectedFile;
+                    this.tableFile = this.selectedFile;
                  }
               }
            },
@@ -93,7 +105,7 @@ window.onload = () => {
 
               try {
                let blob = new Blob([lines], {type: "text/csv;charset=utf-8"});
-               saveAs(blob, this.displayedFile + "_" + this.displayedCategory + ".csv");
+               saveAs(blob, this.tableFile + "_" + this.displayedCategory + ".csv");
 
               } catch (e) {
                  alert("Sorry, your browser does not support offline file saving.");
