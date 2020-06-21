@@ -31,6 +31,7 @@ window.onload = () => {
            },
            FileDragged: function(e) {
               e.preventDefault();
+              e.stopPropagation();
               this.dragCounter++;
               if(this.dragCounter === 1){
                  document.querySelector("#fileStyled").classList.add('dragOver');
@@ -38,6 +39,7 @@ window.onload = () => {
            },
            FileUndragged: function(e) {
               e.preventDefault();
+              e.stopPropagation();
               this.dragCounter--;
               if(this.dragCounter === 0){
                  document.querySelector("#fileStyled").classList.remove('dragOver');
@@ -45,6 +47,7 @@ window.onload = () => {
            },
            FileDropped: function(e) {
               e.preventDefault();
+              e.stopPropagation();
               this.file = e.dataTransfer.files[0];
               this.FileChanged({target: {value: this.file.name, files: [this.file]}});
            },
