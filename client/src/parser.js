@@ -71,18 +71,46 @@ function ProcessFile(files){
    return parsePromise;
 }
 
+//removes incomplete data points from the set
+function CleanData(data){
+
+   for (let method of Object.keys(data)) {
+      let children = 0;
+      let deletedChildren = 0;
+
+      for (let id of Object.keys(data[method])) {
+         data[method][id] = data[method][id].filter((instance) => {
+            return instance.PUSH && instance.POP;
+         });
+
+         if(data[method][id].length === 0){
+            delete data[method][id];
+            deletedChildren++;
+         }
+
+         children++;
+      }
+
+      //get rid of the method category itself if every child under it held incomplete data
+      if(children === deletedChildren){
+         delete data[method];
+      }
+   }
+}
+
 // turn logs into usable data
 function Parse(fileContent)
 {
    let lines = fileContent.split('\n');
-   let data = {};
+   let data = {StackTimings: {}};
 
    // extract important data from each line
    lines.forEach(line => {
       let components = line.split(':');
 
-      if(components.length != 6)
+      if(components.length != 6) {
          return;
+      }
 
       let method = components[5].trim().split('.').pop();
       let id = components[2];
@@ -91,6 +119,12 @@ function Parse(fileContent)
 
       if(!method || !id || !queueState || !time)
          return;
+
+      //track global timings for each stack
+      if(!data.StackTimings[id]) {
+         data.StackTimings[id] = [{PUSH: time}];
+      }
+      data.StackTimings[id][0].POP = time;
 
       //ensure the data store has a place to put this bit
       if(!data[method]) { data[method] = {}; }
@@ -107,6 +141,9 @@ function Parse(fileContent)
          lastMethodInstance[queueState] = time; //add data to current method instance
       } 
    });
+
+   //remove incomplete data points from the set
+   CleanData(data);
 
    return data;
 }
