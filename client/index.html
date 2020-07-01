@@ -53,7 +53,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>STACK_ID</th>
                                 <th>QUEUE_PUSH</th>
                                 <th>PUSH</th>
                                 <th>QUEUE_POP</th>
@@ -61,13 +61,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(data, ID) in displayedData">
-                                <td>{{ID}}</td>
-                                <td>{{data.QUEUE_PUSH}}</td>
-                                <td>{{data.PUSH}}</td>
-                                <td>{{data.QUEUE_POP}}</td>
-                                <td>{{data.POP}}</td>
-                            </tr>
+                            <template v-for="(stack, stackID) in displayedData">
+                                <tr v-for="methodInstance in stack">
+                                    <td>{{stackID}}</td>
+                                    <td>{{methodInstance.QUEUE_PUSH}}</td>
+                                    <td>{{methodInstance.PUSH}}</td>
+                                    <td>{{methodInstance.QUEUE_POP}}</td>
+                                    <td>{{methodInstance.POP}}</td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>

@@ -36,41 +36,31 @@ function ProcessFile(files){
 
    let parsePromise = new Promise(async (resolve, reject) => {
       let data = {};
-      let quantAlert = false;
+      let reader = new FileReader();
 
+      //parse each file and assemble all data
       for(let i = 0; i < files.length; i++) {
-         // read the file in
-         let reader = new FileReader();
          reader.readAsText(files[i],'UTF-8');
-   
-         //once read, parse the file
          let readData = await ReadFile(reader);
          let parsedData = Parse(readData);
 
-         //add the results of this file to the overall data
-         if(Object.keys(parsedData).length > 0) {
-            for (let [type, value] of Object.entries(parsedData)) {
-
-               if(!data[type]) { data[type] = {}; }
-
-               //if id values overlap between files, append filename. Notify the user of this change
-               for (let id of Object.keys(value)) {
-                  if(data[type].hasOwnProperty(id))
-                  {
-                     if(!quantAlert) {
-                        alert("More than one selected file has data for ID:" + id + ". ID will have its filename appended, so the column will not be quantitative.");
-                        quantAlert = true;
-                     }
-
-                     //rename the root key, appending the filename
-                     delete Object.assign(value, {[id + "_" + files[i].name ]: value[id] })[id];
-                  }
-               }
-
-               data[type] = Object.assign(data[type], value);
-            }
-         } else {
+         if(Object.keys(parsedData).length == 0) {
             reject("File \'" + files[i].name + "\' has failed to parse.");
+            return;
+         }
+
+         //add the results of this file to the overall data
+         for (let [method, value] of Object.entries(parsedData)) {
+            if(!data[method]) { data[method] = {}; }
+
+            //merge id arrays into data object
+            for (let id of Object.keys(value)) {
+               if(data[method].hasOwnProperty(id)) {
+                  data[method][id] = data[method][id].concat(value[id]);
+               } else {
+                  data[method][id] = value[id];
+               }
+            }
          }
       }  
 
@@ -91,23 +81,31 @@ function Parse(fileContent)
    lines.forEach(line => {
       let components = line.split(':');
 
-      if(components.length != 6){
+      if(components.length != 6)
          return;
-      }
 
-      //let type = components[5].trim().match(/(?<=\.)(?!Register)[^\.]*$/);
-      let type = components[5].trim().split('.').pop();
-      
+      let method = components[5].trim().split('.').pop();
       let id = components[2];
+      let queueState = components[1];
+      let time = components[0];
 
-      if(!type || type.substring(0, 8) === "Register") {
+      if(!method || !id || !queueState || !time)
          return;
-      }
 
-      if(!data[type]) { data[type] = {}; }
-      if(!data[type][id]) { data[type][id] = {}; }
-  
-      data[type][id][components[1]] = parseInt(components[0]);      
+      //ensure the data store has a place to put this bit
+      if(!data[method]) { data[method] = {}; }
+      if(!data[method][id]) { data[method][id] = [{[queueState]: time}]; return;}
+      
+      let methodInstances = data[method][id]; //gets the array of method instances of this method for a given stack ID
+      let lastMethodInstance = methodInstances[methodInstances.length - 1];
+
+      //a new instance of a method has been reached 
+      if(lastMethodInstance[queueState] !== undefined || (queueState === "QUEUE_PUSH" && lastMethodInstance.PUSH)) {
+         //push new instance onto method instances
+         methodInstances.push({[queueState]: time});
+      } else {
+         lastMethodInstance[queueState] = time; //add data to current method instance
+      } 
    });
 
    return data;
