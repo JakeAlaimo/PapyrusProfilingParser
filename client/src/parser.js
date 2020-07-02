@@ -102,7 +102,7 @@ function CleanData(data){
 function Parse(fileContent)
 {
    let lines = fileContent.split('\n');
-   let data = {StackTimings: {}};
+   let data = {"Stack Timings": {}};
 
    // extract important data from each line
    lines.forEach(line => {
@@ -121,10 +121,10 @@ function Parse(fileContent)
          return;
 
       //track global timings for each stack
-      if(!data.StackTimings[id]) {
-         data.StackTimings[id] = [{PUSH: time}];
+      if(!data["Stack Timings"][id]) {
+         data["Stack Timings"][id] = [{PUSH: time}];
       }
-      data.StackTimings[id][0].POP = time;
+      data["Stack Timings"][id][0].POP = time;
 
       //ensure the data store has a place to put this bit
       if(!data[method]) { data[method] = {}; }
