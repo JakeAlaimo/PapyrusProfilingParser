@@ -47,6 +47,9 @@ window.onload = () => {
                 document.querySelector("#fileStyled").classList.remove('dragOver');
              }
           },
+          ClearFile: function(e) {
+             e.target.value = ''; //to allow reselection of the same file on click
+          },
           FileDragged: function(e) {
              e.preventDefault();
              e.stopPropagation();
