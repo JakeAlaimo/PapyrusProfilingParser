@@ -322,7 +322,7 @@ footer {
     bottom: 17px;
     left: 0;
 
-    font-size:calc(16px + 0.3vw);
+    font-size:calc(15px + 0.35vw);
     font-family: Arial, Helvetica, sans-serif;
 
     color: rgb(22, 24, 15);
@@ -371,7 +371,7 @@ footer a:visited {
 }
 
 /*
-  This is an edge browser, which means the position: sticky on thead th has issues.
+  This is an (old) edge browser, which means the position: sticky on thead th has issues.
   Remove the attribute if using edge. Gross solution, but seemingly necessary.
 */
 @supports (-ms-ime-align:auto) or (-ms-accelerator:true) {
